@@ -1,0 +1,39 @@
+#define ledPin3 10
+#define ledPin2 11
+#define ledPin1 12
+#define motorPin 9
+int potpin = A0;
+int val;
+
+void setup() {
+  pinMode(ledPin1, OUTPUT);
+  pinMode(ledPin2, OUTPUT);
+  pinMode(ledPin3, OUTPUT);
+  pinMode(motorPin, OUTPUT);
+}
+void loop() {
+  val = analogRead(potpin);
+  int motorSpeed = map(val, 0, 1023, 0, 255);
+  analogWrite(motorPin, motorSpeed);
+  
+  // LED indicators
+  if (val > 682) {          // High speed
+    digitalWrite(ledPin1, HIGH);
+  } else {
+    digitalWrite(ledPin1, LOW);
+  }
+
+  if (val > 341 && val <= 682) { // Medium speed
+    digitalWrite(ledPin2, HIGH);
+  } else {
+    digitalWrite(ledPin2, LOW);
+  }
+
+  if (val <= 341) {         // Low speed
+    digitalWrite(ledPin3, HIGH);
+  } else {
+    digitalWrite(ledPin3, LOW);
+  }
+
+  delay(100);
+}
